@@ -1,0 +1,25 @@
+{
+  "name": "tiny-ui-toolkit",
+  "version": "0.1.0",
+  "description": "A small (embedded) UI tool-kit for Atmel AVR",
+  "keywords": "",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/nuxeh/tiny-ui-toolkit"
+  },
+  "authors":
+  [
+    {
+      "name": "Ed Cragg",
+      "email": "drq.11235@gmail.com",
+      "url": "http://eipi.xyz"
+    }
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+  },
+  "frameworks": "arduino",
+  "platforms": "atmelavr"
+}
