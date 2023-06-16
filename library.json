@@ -1,12 +1,12 @@
 {
-  "name": "tiny-ui-tool-kit",
+  "name": "tiny-ui-toolbox",
   "version": "0.1.0",
-  "description": "A small (embedded) UI tool-kit for Atmel AVR",
+  "description": "A small (embedded) UI tool-box for Atmel AVR",
   "keywords": "",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/nuxeh/tiny-ui-toolkit"
+    "url": "https://github.com/nuxeh/tiny-ui-toolbox"
   },
   "authors":
   [
