@@ -10,6 +10,7 @@ struct Fade {
 
   void fadeTo(T brightness, uint16_t milliseconds) {
     targetBrightness = brightness;
+    countSinceSet = 0;
     fadeInterval = milliseconds / difference(brightness, currentBrightness);
   }
 
@@ -60,8 +61,9 @@ private:
   }
 
   uint8_t pin;
-  uint8_t currentBrightness;
-  uint8_t targetBrightness;
+  T currentBrightness;
+  T targetBrightness;
+  T countSinceSet;
   uint16_t fadeInterval;
   uint32_t lastUpdate;
   void (*setDutyFn)(T);
