@@ -3,10 +3,14 @@
 
 #include <Arduino.h>
 
+#define ACTIVE_HIGH true
+#define ACTIVE_LOW false
+
 const uint8_t MASK = 0b11000111;
 
 struct Debounce {
-  Debounce(uint8_t pin) : enabled(0), pin(pin), interval(5), onAssertFn(NULL), onDessertFn(NULL) {}
+  Debounce(uint8_t pin) : enabled(0), pin(pin), interval(5), onAssertFn(NULL), onDessertFn(NULL), activeState(0) {}
+  Debounce(uint8_t pin, bool state) : enabled(0), pin(pin), interval(5), onAssertFn(NULL), onDessertFn(NULL), activeState(state) {}
 
   void setOnAssertdFn(void (*fn)(void)) {
     onAssertFn = fn;
@@ -21,6 +25,15 @@ struct Debounce {
     else if (onDessertFn != NULL && deasserted()) onDessertFn();
   }
 
+  void begin() {
+    if (activeState) {
+      pinMode(pin, INPUT);
+    } else {
+      pinMode(pin, INPUT_PULLUP);
+    }
+    enable();
+  }
+
   void enable() {
     enabled = true;
   }
@@ -32,7 +45,12 @@ struct Debounce {
   void tick() {
     uint32_t time = millis();
     if (enabled && time - lastCheck > interval) {
-      advance(digitalRead(pin));
+      bool rawState = digitalRead(pin);
+      if (activeState) {
+        advance(rawState);
+      } else {
+        advance(!rawState);
+      }
       dispatch();
       lastCheck = time;
     }
@@ -72,7 +90,8 @@ private:
   uint32_t lastCheck;
   void (*onAssertFn)(void);
   void (*onDessertFn)(void);
-  uint8_t history = 0;
+  uint8_t history;
+  bool activeState;
 };
 
 #endif // __DEBOUNCE_H__
