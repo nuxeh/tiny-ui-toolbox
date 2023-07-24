@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+const uint8_t MASK = 0b11000111;
+
 struct Debounce {
   Debounce(uint8_t pin) : enabled(0), pin(pin), interval(5), onAssertFn(NULL), onDessertFn(NULL) {}
 
